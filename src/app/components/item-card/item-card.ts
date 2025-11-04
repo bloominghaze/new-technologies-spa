@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Technology } from '../../shared/models/technology.model';
 
 @Component({
   selector: 'app-item-card',
   standalone: false,
   templateUrl: './item-card.html',
-  styleUrl: './item-card.css',
+  styleUrls: ['./item-card.css']
 })
-export class ItemCard {
+export class ItemCard { // Твоя правильна назва класу
+
+  @Input() technology!: Technology;
 
 }

@@ -1,1 +1,19 @@
-<p>item-card works!</p>
+<div class="card">
+  <div class="card-header">
+    <h3>{{ technology.name }}</h3>
+    <span *ngIf="technology.category === 'AI'" class="new-badge">
+    New!
+  </span>
+    <span class ="card-category"
+          [ngClass]="{
+        'category-ai': technology.category === 'AI',
+        'category-hw': technology.category === 'Hardware',
+        'category-bio': technology.category === 'Biotech'
+      }">
+  {{ technology.category }}
+</span>
+  </div>
+  <div class="card-body">
+    <p>{{ technology.description }}</p>
+  </div>
+</div>

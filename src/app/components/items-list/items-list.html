@@ -1,1 +1,6 @@
-<p>items-list works!</p>
+<div class="list-container">
+  <app-item-card
+    *ngFor="let tech of technologies"
+    [technology]="tech">
+  </app-item-card>
+</div>

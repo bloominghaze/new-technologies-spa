@@ -1,6 +1,13 @@
+<div class="search-container">
+  <input
+    type="text"
+    class="search-input"
+    placeholder="Пошук технології за назвою..."
+    [(ngModel)]="searchText"> </div>
 <div class="list-container">
   <app-item-card
-    *ngFor="let tech of technologies"
-    [technology]="tech">
+    *ngFor="let tech of filteredTechnologies"
+    [technology]="tech"
+    (onSelect)="onTechnologySelected($event)">
   </app-item-card>
 </div>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Technology } from '../../shared/models/technology.model';
 
 @Component({
@@ -7,8 +7,11 @@ import { Technology } from '../../shared/models/technology.model';
   templateUrl: './item-card.html',
   styleUrls: ['./item-card.css']
 })
-export class ItemCard { // Твоя правильна назва класу
-
+export class ItemCard {
   @Input() technology!: Technology;
+  @Output() onSelect = new EventEmitter<Technology>();
+  onDetailsClick(): void {
+    this.onSelect.emit(this.technology);
+  }
 
 }

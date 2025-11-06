@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './items-list.css',
 })
 export class ItemsList {
+  searchText: string = '';
   technologies: Technology[] = [
     {
       id: 1,
@@ -32,4 +33,15 @@ export class ItemsList {
       imageUrl: 'assets/images/crispr.png'
     }
   ];
+  onTechnologySelected(technology: Technology): void {
+    console.log('Подію отримано! Обрано технологію:', technology.name);
+  }
+  get filteredTechnologies(): Technology[] {
+    if (!this.searchText) {
+      return this.technologies;
+    }
+    return this.technologies.filter(tech =>
+      tech.name.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+  }
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Technology } from '../models/technology.model';
 
 @Injectable({
@@ -6,7 +7,7 @@ import { Technology } from '../models/technology.model';
 })
 export class DataService {
 
-  private technologies: Technology[] = [
+  private allTechnologies: Technology[] = [
     {
       id: 1,
       name: 'Generative AI',
@@ -30,10 +31,24 @@ export class DataService {
     }
   ];
 
+  private technologiesSubject = new BehaviorSubject<Technology[]>(this.allTechnologies);
+
+  technologies$ = this.technologiesSubject.asObservable();
+
   constructor() { }
 
-  getItems(): Technology[] {
-    console.log('⚡ DataService: данные успешно запрошены компонентом!');
-    return this.technologies;
+  getItems(): Observable<Technology[]> {
+    return this.technologies$;
+  }
+
+  search(text: string): void {
+    if (!text.trim()) {
+      this.technologiesSubject.next(this.allTechnologies);
+      return;
+    }
+    const filtered = this.allTechnologies.filter(tech =>
+      tech.name.toLowerCase().includes(text.toLowerCase())
+    );
+    this.technologiesSubject.next(filtered);
   }
 }

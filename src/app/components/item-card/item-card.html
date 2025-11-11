@@ -16,9 +16,9 @@
   <div class="card-body">
     <p>{{ technology.description }}</p>
     <div class="card-footer">
-      <button (click)="onDetailsClick()" class="details-button">
+      <a [routerLink]="['/items', technology.id]" class="details-button">
         Детальніше
-      </button>
+      </a>
     </div>
   </div>
 </div>

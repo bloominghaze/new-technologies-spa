@@ -10,6 +10,7 @@ import { Sidebar } from './components/sidebar/sidebar';
 import { MainContent } from './components/main-content/main-content';
 import { ItemsList } from './components/items-list/items-list';
 import { ItemCard } from './components/item-card/item-card';
+import { ItemDetails } from './components/item-details/item-details';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ItemCard } from './components/item-card/item-card';
     Sidebar,
     MainContent,
     ItemsList,
-    ItemCard
+    ItemCard,
+    ItemDetails
   ],
   imports: [
     BrowserModule,

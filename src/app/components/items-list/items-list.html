@@ -12,7 +12,6 @@
 <div class="list-container">
   <app-item-card
     *ngFor="let tech of technologies"
-    [technology]="tech"
-    (onSelect)="onTechnologySelected($event)">
+    [technology]="tech">
   </app-item-card>
 </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Technology } from '../models/technology.model';
 
 @Injectable({
@@ -50,5 +50,10 @@ export class DataService {
       tech.name.toLowerCase().includes(text.toLowerCase())
     );
     this.technologiesSubject.next(filtered);
+
+  }
+  getSingleItem(id: number): Observable<Technology | undefined> {
+    const item = this.allTechnologies.find(t => t.id === id);
+    return of(item);
   }
 }

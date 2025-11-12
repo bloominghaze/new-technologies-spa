@@ -1,0 +1,22 @@
+<div *ngIf="technology; else notFound" class="details-container">
+
+  <button (click)="goBack()" class="back-button">
+    &larr; Назад до списку
+  </button>
+
+  <h2>{{ technology.name }}</h2>
+
+  <span class="details-category">{{ technology.category }}</span>
+
+  <p class="details-description">
+    {{ technology.description }}
+  </p>
+
+</div>
+
+<ng-template #notFound>
+  <p>Технологію не знайдено...</p>
+  <button (click)="goBack()" class="back-button">
+    &larr; Назад до списку
+  </button>
+</ng-template>

@@ -14,7 +14,7 @@
 </span>
   </div>
   <div class="card-body">
-    <p>{{ technology.description }}</p>
+    <p>{{ technology.description | shorten:60 }}</p>
     <div class="card-footer">
       <a [routerLink]="['/items', technology.id]" class="details-button">
         Детальніше

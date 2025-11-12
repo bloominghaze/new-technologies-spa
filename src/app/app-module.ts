@@ -1,7 +1,7 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-
+import { Shorten } from './shared/pipes/shorten-pipe';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Header } from './components/header/header';
@@ -11,6 +11,7 @@ import { MainContent } from './components/main-content/main-content';
 import { ItemsList } from './components/items-list/items-list';
 import { ItemCard } from './components/item-card/item-card';
 import { ItemDetails } from './components/item-details/item-details';
+import { Highlight } from './shared/directives/highlight';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,9 @@ import { ItemDetails } from './components/item-details/item-details';
     MainContent,
     ItemsList,
     ItemCard,
-    ItemDetails
+    ItemDetails,
+    Shorten,
+    Highlight
   ],
   imports: [
     BrowserModule,

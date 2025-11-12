@@ -11,7 +11,8 @@
 
 <div class="list-container">
   <app-item-card
-    *ngFor="let tech of technologies"
-    [technology]="tech">
+    appHighlight *ngFor="let tech of technologies$ | async"
+    [technology]="tech"
+    [routerLink]="['/items', tech.id]">
   </app-item-card>
 </div>

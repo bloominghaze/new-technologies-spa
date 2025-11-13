@@ -1,0 +1,42 @@
+<div class="form-container">
+  <button (click)="goBack()" class="back-button">&larr; Назад до списку</button>
+  <h2>Додати нову технологію</h2>
+
+  <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="name">Назва:</label>
+      <input id="name" type="text" formControlName="name">
+      <div *ngIf="itemForm.get('name')?.invalid && itemForm.get('name')?.touched" class="error-message">
+        Назва є обов'язковою.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Опис:</label>
+      <textarea id="description" rows="4" formControlName="description"></textarea>
+      <div *ngIf="itemForm.get('description')?.invalid && itemForm.get('description')?.touched" class="error-message">
+        <span *ngIf="itemForm.get('description')?.hasError('required')">Опис є обов'язковим.</span>
+        <span *ngIf="itemForm.get('description')?.hasError('minlength')">Опис має бути не менше 10 символів.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="category">Категорія:</label>
+      <select id="category" formControlName="category">
+        <option value="Software">Software</option>
+        <option value="AI">AI</option>
+        <option value="Hardware">Hardware</option>
+        <option value="Biotech">Biotech</option>
+      </select>
+      <div *ngIf="itemForm.get('category')?.invalid && itemForm.get('category')?.touched" class="error-message">
+        Категорія є обов'язковою.
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="itemForm.invalid" class="submit-button">
+      Додати
+    </button>
+
+  </form>
+</div>

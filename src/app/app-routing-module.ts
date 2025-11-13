@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+import { ItemForm } from './components/item-form/item-form';
 import { ItemsList } from './components/items-list/items-list';
 import { ItemDetails } from './components/item-details/item-details';
 
@@ -9,6 +9,12 @@ const routes: Routes = [
     path: 'items',
     component: ItemsList
   },
+
+  {
+    path: 'items/new', // Шлях для створення
+    component: ItemForm
+  },
+
   {
     path: 'items/:id',
     component: ItemDetails

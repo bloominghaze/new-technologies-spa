@@ -56,4 +56,20 @@ export class DataService {
     const item = this.allTechnologies.find(t => t.id === id);
     return of(item);
   }
+  addItem(newItemData: { name: string, description: string, category: string }): void {
+
+    const newId = Math.max(...this.allTechnologies.map(t => t.id)) + 1;
+
+    const newItem: Technology = {
+      id: newId,
+      name: newItemData.name,
+      description: newItemData.description,
+      category: newItemData.category,
+      imageUrl: 'assets/images/placeholder.png'
+    };
+
+    this.allTechnologies.push(newItem);
+
+    this.technologiesSubject.next(this.allTechnologies);
+  }
 }

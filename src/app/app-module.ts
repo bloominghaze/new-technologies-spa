@@ -1,4 +1,6 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BaseUrl } from './shared/interceptors/base-url-interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { Shorten } from './shared/pipes/shorten-pipe';
 import { AppRoutingModule } from './app-routing-module';
@@ -32,10 +34,16 @@ import { ItemForm } from './components/item-form/item-form';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
-    provideBrowserGlobalErrorListeners()
+    provideBrowserGlobalErrorListeners(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseUrl,
+      multi: true
+    }
   ],
   bootstrap: [App]
 })

@@ -1,0 +1,32 @@
+{
+  "technologies": [
+    {
+      "id": "1",
+      "name": "Generative AI",
+      "description": "Системи ШІ, здатні генерувати текст, зображення та інший контент.",
+      "category": "AI",
+      "imageUrl": "assets/images/ai.png"
+    },
+    {
+      "id": "2",
+      "name": "Quantum Computing",
+      "description": "Використання квантово-механічних явищ для обчислень.",
+      "category": "Hardware",
+      "imageUrl": "assets/images/quantum.png"
+    },
+    {
+      "id": "3",
+      "name": "CRISPR-Cas9",
+      "description": "Технологія редагування геному для зміни ДНК.",
+      "category": "Biotech",
+      "imageUrl": "assets/images/crispr.png"
+    },
+    {
+      "id": "6c08",
+      "name": "123123123123123",
+      "description": "123123123123",
+      "category": "Biotech",
+      "imageUrl": "assets/images/placeholder.png"
+    }
+  ]
+}

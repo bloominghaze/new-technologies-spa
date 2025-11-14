@@ -1,75 +1,80 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, EMPTY } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Technology } from '../models/technology.model';
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private allTechnologies: Technology[] = [
-    {
-      id: 1,
-      name: 'Generative AI',
-      description: 'Системи ШІ, здатні генерувати текст, зображення та інший контент.',
-      category: 'AI',
-      imageUrl: 'assets/images/ai.png'
-    },
-    {
-      id: 2,
-      name: 'Quantum Computing',
-      description: 'Використання квантово-механічних явищ для обчислень.',
-      category: 'Hardware',
-      imageUrl: 'assets/images/quantum.png'
-    },
-    {
-      id: 3,
-      name: 'CRISPR-Cas9',
-      description: 'Технологія редагування геному для зміни ДНК.',
-      category: 'Biotech',
-      imageUrl: 'assets/images/crispr.png'
-    }
-  ];
+  private technologiesUrl = '/technologies';
 
-  private technologiesSubject = new BehaviorSubject<Technology[]>(this.allTechnologies);
-
+  private technologiesSubject = new BehaviorSubject<Technology[]>([]);
   technologies$ = this.technologiesSubject.asObservable();
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+    this.loadItems();
+  }
+
+  private loadItems(): void {
+    this.http.get<Technology[]>(this.technologiesUrl)
+      .pipe(
+        catchError(err => {
+          console.error('Помилка завантаження даних!', err);
+          return EMPTY;
+        })
+      )
+      .subscribe(data => {
+        this.technologiesSubject.next(data);
+      });
+  }
 
   getItems(): Observable<Technology[]> {
     return this.technologies$;
   }
 
   search(text: string): void {
-    if (!text.trim()) {
-      this.technologiesSubject.next(this.allTechnologies);
+    const searchTerm = text.trim().toLowerCase();
+    let url = this.technologiesUrl; // http://localhost:3000/technologies
+
+    if (!searchTerm) {
+      this.http.get<Technology[]>(url).subscribe(data => {
+        this.technologiesSubject.next(data);
+      });
       return;
     }
-    const filtered = this.allTechnologies.filter(tech =>
-      tech.name.toLowerCase().includes(text.toLowerCase())
-    );
-    this.technologiesSubject.next(filtered);
 
-  }
-  getSingleItem(id: number): Observable<Technology | undefined> {
-    const item = this.allTechnologies.find(t => t.id === id);
-    return of(item);
+    this.http.get<Technology[]>(url).subscribe(allData => {
+      const filtered = allData.filter(tech =>
+        tech.name.toLowerCase().includes(searchTerm)
+      );
+      this.technologiesSubject.next(filtered);
+    });
   }
   addItem(newItemData: { name: string, description: string, category: string }): void {
 
-    const newId = Math.max(...this.allTechnologies.map(t => t.id)) + 1;
-
-    const newItem: Technology = {
-      id: newId,
+    const newItem: Omit<Technology, 'id'> = {
       name: newItemData.name,
       description: newItemData.description,
       category: newItemData.category,
       imageUrl: 'assets/images/placeholder.png'
     };
 
-    this.allTechnologies.push(newItem);
+    this.http.post<Technology>(this.technologiesUrl, newItem)
+      .subscribe(addedItem => {
 
-    this.technologiesSubject.next(this.allTechnologies);
+        const currentItems = this.technologiesSubject.getValue();
+        this.technologiesSubject.next([...currentItems, addedItem]);
+      });
   }
+
+
+  getSingleItem(id: number): Observable<Technology | undefined> {
+    const url = `${this.technologiesUrl}/${id}`;
+    return this.http.get<Technology>(url);
+  }
+
 }

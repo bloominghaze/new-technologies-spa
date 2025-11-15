@@ -15,6 +15,8 @@ import { ItemDetails } from './components/item-details/item-details';
 import { Highlight } from './shared/directives/highlight';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ItemForm } from './components/item-form/item-form';
+import { Login } from './components/login/login';
+import { AuthInterceptor } from './shared/interceptors/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { ItemForm } from './components/item-form/item-form';
     ItemDetails,
     Shorten,
     Highlight,
-    ItemForm
+    ItemForm,
+    Login
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,11 @@ import { ItemForm } from './components/item-form/item-form';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BaseUrl,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
       multi: true
     }
   ],

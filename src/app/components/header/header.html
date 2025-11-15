@@ -1,5 +1,16 @@
 <header class="app-header">
   <h1>{{ title }}</h1>
   <nav>
+    <a *ngIf="(isLoggedIn$ | async) === false"
+       routerLink="/login"
+       class="nav-link">
+      Увійти
+    </a>
+
+    <a *ngIf="(isLoggedIn$ | async) === true"
+       (click)="onLogout()"
+       class="nav-link logout-button">
+      Вийти
+    </a>
   </nav>
 </header>

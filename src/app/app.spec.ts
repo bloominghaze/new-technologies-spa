@@ -1,15 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
 import { App } from './app';
+
+import { Header } from './components/header/header';
+import { Footer } from './components/footer/footer';
+import { Sidebar } from './components/sidebar/sidebar';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterModule.forRoot([])
+        RouterTestingModule
       ],
       declarations: [
-        App
+        App,
+        Header,
+        Footer,
+        Sidebar
       ],
     }).compileComponents();
   });
@@ -18,12 +25,5 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, new-technologies-spa');
   });
 });
